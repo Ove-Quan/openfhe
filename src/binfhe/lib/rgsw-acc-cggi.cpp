@@ -215,9 +215,13 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     std::ofstream monomial_file("/home/ove2/openfhe-development/Monomial_INIT.txt"); 
     std::ofstream monomialNeg_file("/home/ove2/openfhe-development/MonomialNeg_INIT.txt"); 
 
-    for (int i = 0; i < 1024; i++) {
-        monomial_file << setbase(16) << setw(7) << setfill('0') << monomial.m_values.get()->m_data[i].m_value << "\n";
-        monomialNeg_file << setbase(16) << setw(7) << setfill('0') << monomialNeg.m_values.get()->m_data[i].m_value << "\n"; 
+    for (int i = 0; i < 1024; i += 8) {
+        for (int j = 7; j >= 0; j--) {
+            monomial_file << setbase(16) << setw(7) << setfill('0') << monomial.m_values.get()->m_data[i+j].m_value;
+            monomialNeg_file << setbase(16) << setw(7) << setfill('0') << monomialNeg.m_values.get()->m_data[i+j].m_value; 
+        }
+        monomial_file << "\n";
+        monomialNeg_file << "\n";
     }
     monomial_file.close();
     monomialNeg_file.close();
@@ -245,8 +249,8 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
         temp1_a_file << temp1.m_values.get()->m_data[i].m_value << "\n";
     }
     temp1_a_file.close();
-
-    acc->GetElements()[0] += (temp1 *= monomial);
+    NativePoly acc_inc_a = temp1 *= monomial;
+    // acc->GetElements()[0] += (temp1 *= monomial);
 
     // 1.2 temp1_b generation
     temp1 = dct[0] * ev1[0][1];
@@ -258,8 +262,9 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
         temp1_b_file << temp1.m_values.get()->m_data[i].m_value << "\n";
     }
     temp1_b_file.close();
-    
-    acc->GetElements()[1] += (temp1 *= monomial);
+
+    NativePoly acc_inc_b = temp1 *= monomial;
+    // acc->GetElements()[1] += (temp1 *= monomial);
 
     const std::vector<std::vector<NativePoly>>& ev2 = ek2->GetElements();
     // 2.1 temp2_a generation for elements[0]:
@@ -272,8 +277,9 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
         temp2_a_file << temp2.m_values.get()->m_data[i].m_value << "\n";
     }
     temp2_a_file.close();
-
-    acc->GetElements()[0] += (temp2 *= monomialNeg);
+    
+    acc_inc_a += (temp2 *= monomialNeg);
+    // acc->GetElements()[0] += (temp2 *= monomialNeg);
     
     //  2.2 temp2_b generation for elements[1]:
     temp2 = dct[0] * ev2[0][1];
@@ -286,7 +292,20 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     }
     temp2_b_file.close();
 
-    acc->GetElements()[1] += (temp2 *= monomialNeg);
+    acc_inc_b += (temp2 *= monomialNeg);
+    // acc->GetElements()[1] += (temp2 *= monomialNeg);
+
+    std::ofstream acc_inc_a_file("/home/ove2/openfhe-development/CMUX_ACC_INC_A.txt"); 
+    std::ofstream acc_inc_b_file("/home/ove2/openfhe-development/CMUX_ACC_INC_B.txt"); 
+    for (int i = 0; i < 1024; i++) {
+        acc_inc_a_file << acc_inc_a.m_values.get()->m_data[i].m_value << "\n";
+        acc_inc_b_file << acc_inc_b.m_values.get()->m_data[i].m_value << "\n";
+    }
+    acc_inc_a_file.close();
+    acc_inc_b_file.close();
+
+    acc->GetElements()[0] += acc_inc_a;
+    acc->GetElements()[1] += acc_inc_b;
 }
 
 };  // namespace lbcrypto
