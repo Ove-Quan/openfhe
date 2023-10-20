@@ -198,6 +198,34 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     for (size_t i = 0; i < digitsG2; ++i)
         dct[i].SetFormat(Format::EVALUATION);
 
+    // get data of dct input of externalProduct
+    std::ofstream extPro_a0("/home/ove2/openfhe-development/ExtPro_A0.txt"); 
+    std::ofstream extPro_a1("/home/ove2/openfhe-development/ExtPro_A1.txt"); 
+    std::ofstream extPro_a2("/home/ove2/openfhe-development/ExtPro_A2.txt"); 
+    std::ofstream extPro_a3("/home/ove2/openfhe-development/ExtPro_A3.txt"); 
+    std::ofstream extPro_b0("/home/ove2/openfhe-development/ExtPro_B0.txt"); 
+    std::ofstream extPro_b1("/home/ove2/openfhe-development/ExtPro_B1.txt"); 
+    std::ofstream extPro_b2("/home/ove2/openfhe-development/ExtPro_B2.txt"); 
+    std::ofstream extPro_b3("/home/ove2/openfhe-development/ExtPro_B3.txt"); 
+    for (int i = 0; i < 1024; i++) {
+        extPro_a0 << dct[0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_b0 << dct[1].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_a1 << dct[2].m_values.get()->m_data[i].m_value << "\n";
+        extPro_b1 << dct[3].m_values.get()->m_data[i].m_value << "\n";
+        extPro_a2 << dct[4].m_values.get()->m_data[i].m_value << "\n";
+        extPro_b2 << dct[5].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_a3 << dct[6].m_values.get()->m_data[i].m_value << "\n";
+        extPro_b3 << dct[7].m_values.get()->m_data[i].m_value << "\n";  
+    }
+    extPro_a0.close();
+    extPro_b0.close();
+    extPro_a1.close();
+    extPro_b1.close();
+    extPro_a2.close();
+    extPro_b2.close();
+    extPro_a3.close();
+    extPro_b3.close();
+
     // First obtain both monomial(index) for sk = 1 and monomial(-index) for sk = -1
     auto aNeg         = M.ModSub(a, M);
     uint64_t indexPos = a.ConvertToInt();
@@ -232,12 +260,58 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     // improvement. Needs to be done using two loops for ternary secrets.
     // TODO (dsuponit): benchmark cases with operator*() and operator*=(). Make a copy of dct?
     const std::vector<std::vector<NativePoly>>& ev1 = ek1->GetElements();
-    // for (size_t j = 0; j < 2; ++j) {
-    //     NativePoly temp1(dct[0] * ev1[0][j]);
-    //     for (size_t l = 1; l < digitsG2; ++l)
-    //         temp1 += (dct[l] * ev1[l][j]);
-    //     acc->GetElements()[j] += (temp1 *= monomial);
-    // }
+    // get data of evk1 input of externalProduct
+    std::ofstream extPro_evk1_a0("/home/ove2/openfhe-development/ExtPro_EVK1_A0.txt"); 
+    std::ofstream extPro_evk1_a1("/home/ove2/openfhe-development/ExtPro_EVK1_A1.txt"); 
+    std::ofstream extPro_evk1_a2("/home/ove2/openfhe-development/ExtPro_EVK1_A2.txt"); 
+    std::ofstream extPro_evk1_a3("/home/ove2/openfhe-development/ExtPro_EVK1_A3.txt");
+    std::ofstream extPro_evk1_a4("/home/ove2/openfhe-development/ExtPro_EVK1_A4.txt"); 
+    std::ofstream extPro_evk1_a5("/home/ove2/openfhe-development/ExtPro_EVK1_A5.txt"); 
+    std::ofstream extPro_evk1_a6("/home/ove2/openfhe-development/ExtPro_EVK1_A6.txt"); 
+    std::ofstream extPro_evk1_a7("/home/ove2/openfhe-development/ExtPro_EVK1_A7.txt");  
+    std::ofstream extPro_evk1_b0("/home/ove2/openfhe-development/ExtPro_EVK1_B0.txt"); 
+    std::ofstream extPro_evk1_b1("/home/ove2/openfhe-development/ExtPro_EVK1_B1.txt"); 
+    std::ofstream extPro_evk1_b2("/home/ove2/openfhe-development/ExtPro_EVK1_B2.txt"); 
+    std::ofstream extPro_evk1_b3("/home/ove2/openfhe-development/ExtPro_EVK1_B3.txt"); 
+    std::ofstream extPro_evk1_b4("/home/ove2/openfhe-development/ExtPro_EVK1_B4.txt"); 
+    std::ofstream extPro_evk1_b5("/home/ove2/openfhe-development/ExtPro_EVK1_B5.txt"); 
+    std::ofstream extPro_evk1_b6("/home/ove2/openfhe-development/ExtPro_EVK1_B6.txt"); 
+    std::ofstream extPro_evk1_b7("/home/ove2/openfhe-development/ExtPro_EVK1_B7.txt"); 
+    for (int i = 0; i < 1024; i++) {
+        extPro_evk1_a0 << ev1[0][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_a1 << ev1[1][0].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk1_a2 << ev1[2][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_a3 << ev1[3][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_a4 << ev1[4][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_a5 << ev1[5][0].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk1_a6 << ev1[6][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_a7 << ev1[7][0].m_values.get()->m_data[i].m_value << "\n";  
+        extPro_evk1_b0 << ev1[0][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_b1 << ev1[1][1].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk1_b2 << ev1[2][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_b3 << ev1[3][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_b4 << ev1[4][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_b5 << ev1[5][1].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk1_b6 << ev1[6][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk1_b7 << ev1[7][1].m_values.get()->m_data[i].m_value << "\n";  
+    }
+    extPro_evk1_a0.close();
+    extPro_evk1_a1.close();
+    extPro_evk1_a2.close();
+    extPro_evk1_a3.close();
+    extPro_evk1_a4.close();
+    extPro_evk1_a5.close();
+    extPro_evk1_a6.close();
+    extPro_evk1_a7.close();
+    extPro_evk1_b0.close();
+    extPro_evk1_b1.close();
+    extPro_evk1_b2.close();
+    extPro_evk1_b3.close();
+    extPro_evk1_b4.close();
+    extPro_evk1_b5.close();
+    extPro_evk1_b6.close();
+    extPro_evk1_b7.close();
+
 
     // 1.1 temp1_a generation
     NativePoly temp1(dct[0] * ev1[0][0]);
@@ -267,6 +341,60 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     // acc->GetElements()[1] += (temp1 *= monomial);
 
     const std::vector<std::vector<NativePoly>>& ev2 = ek2->GetElements();
+    //  get data of evk2 input of externalProduct
+    std::ofstream extPro_evk2_a0("/home/ove2/openfhe-development/ExtPro_EVK2_A0.txt"); 
+    std::ofstream extPro_evk2_a1("/home/ove2/openfhe-development/ExtPro_EVK2_A1.txt"); 
+    std::ofstream extPro_evk2_a2("/home/ove2/openfhe-development/ExtPro_EVK2_A2.txt"); 
+    std::ofstream extPro_evk2_a3("/home/ove2/openfhe-development/ExtPro_EVK2_A3.txt");
+    std::ofstream extPro_evk2_a4("/home/ove2/openfhe-development/ExtPro_EVK2_A4.txt"); 
+    std::ofstream extPro_evk2_a5("/home/ove2/openfhe-development/ExtPro_EVK2_A5.txt"); 
+    std::ofstream extPro_evk2_a6("/home/ove2/openfhe-development/ExtPro_EVK2_A6.txt"); 
+    std::ofstream extPro_evk2_a7("/home/ove2/openfhe-development/ExtPro_EVK2_A7.txt");  
+    std::ofstream extPro_evk2_b0("/home/ove2/openfhe-development/ExtPro_EVK2_B0.txt"); 
+    std::ofstream extPro_evk2_b1("/home/ove2/openfhe-development/ExtPro_EVK2_B1.txt"); 
+    std::ofstream extPro_evk2_b2("/home/ove2/openfhe-development/ExtPro_EVK2_B2.txt"); 
+    std::ofstream extPro_evk2_b3("/home/ove2/openfhe-development/ExtPro_EVK2_B3.txt"); 
+    std::ofstream extPro_evk2_b4("/home/ove2/openfhe-development/ExtPro_EVK2_B4.txt"); 
+    std::ofstream extPro_evk2_b5("/home/ove2/openfhe-development/ExtPro_EVK2_B5.txt"); 
+    std::ofstream extPro_evk2_b6("/home/ove2/openfhe-development/ExtPro_EVK2_B6.txt"); 
+    std::ofstream extPro_evk2_b7("/home/ove2/openfhe-development/ExtPro_EVK2_B7.txt"); 
+    for (int i = 0; i < 1024; i++) {
+        extPro_evk2_a0 << ev2[0][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_a1 << ev2[1][0].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk2_a2 << ev2[2][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_a3 << ev2[3][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_a4 << ev2[4][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_a5 << ev2[5][0].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk2_a6 << ev2[6][0].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_a7 << ev2[7][0].m_values.get()->m_data[i].m_value << "\n";  
+        extPro_evk2_b0 << ev2[0][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_b1 << ev2[1][1].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk2_b2 << ev2[2][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_b3 << ev2[3][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_b4 << ev2[4][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_b5 << ev2[5][1].m_values.get()->m_data[i].m_value << "\n"; 
+        extPro_evk2_b6 << ev2[6][1].m_values.get()->m_data[i].m_value << "\n";
+        extPro_evk2_b7 << ev2[7][1].m_values.get()->m_data[i].m_value << "\n";  
+    }
+    extPro_evk2_a0.close();
+    extPro_evk2_a1.close();
+    extPro_evk2_a2.close();
+    extPro_evk2_a3.close();
+    extPro_evk2_a4.close();
+    extPro_evk2_a5.close();
+    extPro_evk2_a6.close();
+    extPro_evk2_a7.close();
+    extPro_evk2_b0.close();
+    extPro_evk2_b1.close();
+    extPro_evk2_b2.close();
+    extPro_evk2_b3.close();
+    extPro_evk2_b4.close();
+    extPro_evk2_b5.close();
+    extPro_evk2_b6.close();
+    extPro_evk2_b7.close();
+
+
+
     // 2.1 temp2_a generation for elements[0]:
     NativePoly temp2(dct[0] * ev2[0][0]);
     for (size_t l = 1; l < digitsG2; ++l)
