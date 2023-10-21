@@ -245,7 +245,7 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
 
     for (int i = 0; i < 1024; i += 8) {
         for (int j = 7; j >= 0; j--) {
-            monomial_file << setbase(16) << setw(7) << setfill('0') << monomial.m_values.get()->m_data[i+j].m_value;
+            monomial_file    << setbase(16) << setw(7) << setfill('0') << monomial.m_values.get()->m_data[i+j].m_value;
             monomialNeg_file << setbase(16) << setw(7) << setfill('0') << monomialNeg.m_values.get()->m_data[i+j].m_value; 
         }
         monomial_file << "\n";
@@ -277,23 +277,41 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     std::ofstream extPro_evk1_b5("/home/ove2/openfhe-development/ExtPro_EVK1_B5.txt"); 
     std::ofstream extPro_evk1_b6("/home/ove2/openfhe-development/ExtPro_EVK1_B6.txt"); 
     std::ofstream extPro_evk1_b7("/home/ove2/openfhe-development/ExtPro_EVK1_B7.txt"); 
-    for (int i = 0; i < 1024; i++) {
-        extPro_evk1_a0 << ev1[0][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_a1 << ev1[1][0].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk1_a2 << ev1[2][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_a3 << ev1[3][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_a4 << ev1[4][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_a5 << ev1[5][0].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk1_a6 << ev1[6][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_a7 << ev1[7][0].m_values.get()->m_data[i].m_value << "\n";  
-        extPro_evk1_b0 << ev1[0][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_b1 << ev1[1][1].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk1_b2 << ev1[2][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_b3 << ev1[3][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_b4 << ev1[4][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_b5 << ev1[5][1].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk1_b6 << ev1[6][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk1_b7 << ev1[7][1].m_values.get()->m_data[i].m_value << "\n";  
+    for (int i = 0; i < 1024; i += 8) {
+        for (int j = 7; j >= 0; j--) {
+            extPro_evk1_a0 << setbase(16) << setw(7) << setfill('0') << ev1[0][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_a1 << setbase(16) << setw(7) << setfill('0') << ev1[1][0].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk1_a2 << setbase(16) << setw(7) << setfill('0') << ev1[2][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_a3 << setbase(16) << setw(7) << setfill('0') << ev1[3][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_a4 << setbase(16) << setw(7) << setfill('0') << ev1[4][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_a5 << setbase(16) << setw(7) << setfill('0') << ev1[5][0].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk1_a6 << setbase(16) << setw(7) << setfill('0') << ev1[6][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_a7 << setbase(16) << setw(7) << setfill('0') << ev1[7][0].m_values.get()->m_data[i+j].m_value;  
+            extPro_evk1_b0 << setbase(16) << setw(7) << setfill('0') << ev1[0][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_b1 << setbase(16) << setw(7) << setfill('0') << ev1[1][1].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk1_b2 << setbase(16) << setw(7) << setfill('0') << ev1[2][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_b3 << setbase(16) << setw(7) << setfill('0') << ev1[3][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_b4 << setbase(16) << setw(7) << setfill('0') << ev1[4][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_b5 << setbase(16) << setw(7) << setfill('0') << ev1[5][1].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk1_b6 << setbase(16) << setw(7) << setfill('0') << ev1[6][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk1_b7 << setbase(16) << setw(7) << setfill('0') << ev1[7][1].m_values.get()->m_data[i+j].m_value;
+        }
+        extPro_evk1_a0 << "\n";
+        extPro_evk1_a1 << "\n"; 
+        extPro_evk1_a2 << "\n";
+        extPro_evk1_a3 << "\n";
+        extPro_evk1_a4 << "\n";
+        extPro_evk1_a5 << "\n"; 
+        extPro_evk1_a6 << "\n";
+        extPro_evk1_a7 << "\n";  
+        extPro_evk1_b0 << "\n";
+        extPro_evk1_b1 << "\n"; 
+        extPro_evk1_b2 << "\n";
+        extPro_evk1_b3 << "\n";
+        extPro_evk1_b4 << "\n";
+        extPro_evk1_b5 << "\n"; 
+        extPro_evk1_b6 << "\n";
+        extPro_evk1_b7 << "\n";
     }
     extPro_evk1_a0.close();
     extPro_evk1_a1.close();
@@ -358,23 +376,41 @@ void RingGSWAccumulatorCGGI::AddToAccCGGI(const std::shared_ptr<RingGSWCryptoPar
     std::ofstream extPro_evk2_b5("/home/ove2/openfhe-development/ExtPro_EVK2_B5.txt"); 
     std::ofstream extPro_evk2_b6("/home/ove2/openfhe-development/ExtPro_EVK2_B6.txt"); 
     std::ofstream extPro_evk2_b7("/home/ove2/openfhe-development/ExtPro_EVK2_B7.txt"); 
-    for (int i = 0; i < 1024; i++) {
-        extPro_evk2_a0 << ev2[0][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_a1 << ev2[1][0].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk2_a2 << ev2[2][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_a3 << ev2[3][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_a4 << ev2[4][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_a5 << ev2[5][0].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk2_a6 << ev2[6][0].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_a7 << ev2[7][0].m_values.get()->m_data[i].m_value << "\n";  
-        extPro_evk2_b0 << ev2[0][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_b1 << ev2[1][1].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk2_b2 << ev2[2][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_b3 << ev2[3][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_b4 << ev2[4][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_b5 << ev2[5][1].m_values.get()->m_data[i].m_value << "\n"; 
-        extPro_evk2_b6 << ev2[6][1].m_values.get()->m_data[i].m_value << "\n";
-        extPro_evk2_b7 << ev2[7][1].m_values.get()->m_data[i].m_value << "\n";  
+    for (int i = 0; i < 1024; i += 8) {
+        for (int j = 7; j >= 0; j--) {
+            extPro_evk2_a0 << setbase(16) << setw(7) << setfill('0') << ev2[0][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_a1 << setbase(16) << setw(7) << setfill('0') << ev2[1][0].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk2_a2 << setbase(16) << setw(7) << setfill('0') << ev2[2][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_a3 << setbase(16) << setw(7) << setfill('0') << ev2[3][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_a4 << setbase(16) << setw(7) << setfill('0') << ev2[4][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_a5 << setbase(16) << setw(7) << setfill('0') << ev2[5][0].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk2_a6 << setbase(16) << setw(7) << setfill('0') << ev2[6][0].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_a7 << setbase(16) << setw(7) << setfill('0') << ev2[7][0].m_values.get()->m_data[i+j].m_value;  
+            extPro_evk2_b0 << setbase(16) << setw(7) << setfill('0') << ev2[0][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_b1 << setbase(16) << setw(7) << setfill('0') << ev2[1][1].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk2_b2 << setbase(16) << setw(7) << setfill('0') << ev2[2][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_b3 << setbase(16) << setw(7) << setfill('0') << ev2[3][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_b4 << setbase(16) << setw(7) << setfill('0') << ev2[4][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_b5 << setbase(16) << setw(7) << setfill('0') << ev2[5][1].m_values.get()->m_data[i+j].m_value; 
+            extPro_evk2_b6 << setbase(16) << setw(7) << setfill('0') << ev2[6][1].m_values.get()->m_data[i+j].m_value;
+            extPro_evk2_b7 << setbase(16) << setw(7) << setfill('0') << ev2[7][1].m_values.get()->m_data[i+j].m_value;
+        }
+        extPro_evk2_a0 << "\n";
+        extPro_evk2_a1 << "\n"; 
+        extPro_evk2_a2 << "\n";
+        extPro_evk2_a3 << "\n";
+        extPro_evk2_a4 << "\n";
+        extPro_evk2_a5 << "\n"; 
+        extPro_evk2_a6 << "\n";
+        extPro_evk2_a7 << "\n";  
+        extPro_evk2_b0 << "\n";
+        extPro_evk2_b1 << "\n"; 
+        extPro_evk2_b2 << "\n";
+        extPro_evk2_b3 << "\n";
+        extPro_evk2_b4 << "\n";
+        extPro_evk2_b5 << "\n"; 
+        extPro_evk2_b6 << "\n";
+        extPro_evk2_b7 << "\n";
     }
     extPro_evk2_a0.close();
     extPro_evk2_a1.close();
