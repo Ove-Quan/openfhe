@@ -92,7 +92,21 @@ LWECiphertext BinFHEScheme::EvalBinGate(const std::shared_ptr<BinFHECryptoParams
         std::vector<NativePoly>& accVec = acc->GetElements();
         // the accumulator result is encrypted w.r.t. the transposed secret key
         // we can transpose "a" to get an encryption under the original secret key
-        accVec[0] = accVec[0].Transpose();
+
+        std::ofstream accVec0_in_file("/home/ove2/openfhe-development/ACCVec0_input.txt"); 
+        for (int i = 0; i < 1024; i++) {
+            accVec0_in_file << accVec[0].m_values.get()->m_data[i].m_value << "\n";
+        }
+        accVec0_in_file.close();
+
+        accVec[0] = accVec[0].Transpose(); // do it in Format::EVALUATION 
+
+        std::ofstream accVec0_out_file("/home/ove2/openfhe-development/ACCVec0_output.txt"); 
+        for (int i = 0; i < 1024; i++) {
+            accVec0_out_file << accVec[0].m_values.get()->m_data[i].m_value << "\n";
+        }
+        accVec0_out_file.close();
+
         accVec[0].SetFormat(Format::COEFFICIENT);
         accVec[1].SetFormat(Format::COEFFICIENT);
 

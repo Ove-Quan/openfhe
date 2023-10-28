@@ -664,8 +664,8 @@ template <typename VecType>
 PolyImpl<VecType> PolyImpl<VecType>::AutomorphismTransform(const usint& k) const {
     PolyImpl result(*this);
 
-    usint m = this->m_params->GetCyclotomicOrder();
-    usint n = this->m_params->GetRingDimension();
+    usint m = this->m_params->GetCyclotomicOrder(); // 2048
+    usint n = this->m_params->GetRingDimension(); // 1024
 
     if (this->m_format == Format::EVALUATION) {
         if (!m_params->OrderIsPowerOfTwo()) {
